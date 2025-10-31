@@ -1,0 +1,437 @@
+{
+	"info": {
+		"_postman_id": "c1a0a1b8-2c3b-4d5e-8f9a-1e2a3b4c5d6e",
+		"name": "SIMS PPOB API (THT)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "1. Membership (Auth)",
+			"item": [
+				{
+					"name": "/registration",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"user@nutech-integrasi.com\",\r\n  \"first_name\": \"User\",\r\n  \"last_name\": \"Nutech\",\r\n  \"password\": \"abcdef1234\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/registration",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"registration"
+							]
+						},
+						"description": "API Registration Public (Tidak perlu Token untuk mengaksesnya)\n\nKetentuan:\n1. Parameter request email harus terdapat validasi format email\n2. Parameter request password Length minimal 8 karakter"
+					},
+					"response": []
+				},
+				{
+					"name": "/login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Skrip ini otomatis mengambil token dari response dan menyimpannya",
+									"// ke collection variable 'token' agar request lain bisa menggunakannya.",
+									"var jsonData = pm.response.json();",
+									"if (jsonData && jsonData.data && jsonData.data.token) {",
+									"    pm.collectionVariables.set(\"token\", jsonData.data.token);",
+									"    console.log(\"Token saved!\")",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"user@nutech-integrasi.com\",\r\n  \"password\": \"abcdef1234\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/login",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"login"
+							]
+						},
+						"description": "API Login Public (Tidak perlu Token untuk mengaksesnya)\n\nKetentuan:\n1. JWT expiration 12 jam\n2. Payload berisi email"
+					},
+					"response": []
+				}
+			],
+			"description": "Modul Registrasi dan Login"
+		},
+		{
+			"name": "2. Profile",
+			"item": [
+				{
+					"name": "/profile",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/profile",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"profile"
+							]
+						},
+						"description": "API Profile Private (memerlukan Token untuk mengaksesnya)\n\nKetentuan:\n1. Service ini harus menggunakan Bearer Token JWT\n2. Email diambil dari payload JWT"
+					},
+					"response": []
+				},
+				{
+					"name": "/profile/update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"first_name\": \"User Edited\",\r\n  \"last_name\": \"Nutech Edited\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/profile/update",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"profile",
+								"update"
+							]
+						},
+						"description": "API Update Profile Private (memerlukan Token untuk mengaksesnya)"
+					},
+					"response": []
+				},
+				{
+					"name": "/profile/image",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": []
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseURL}}/profile/image",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"profile",
+								"image"
+							]
+						},
+						"description": "API Upload Profile Image Private (memerlukan Token untuk mengaksesnya)\n\nKetentuan:\n1. Format Image yang boleh di upload hanya jpeg dan png"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "3. Information",
+			"item": [
+				{
+					"name": "/banner",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/banner",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"banner"
+							]
+						},
+						"description": "API Banner Public (tidak memerlukan Token untuk mengaksesnya)"
+					},
+					"response": []
+				},
+				{
+					"name": "/services",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/services",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"services"
+							]
+						},
+						"description": "API Services Private (memerlukan Token untuk mengaksesnya)"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "4. Transaction",
+			"item": [
+				{
+					"name": "/balance",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/balance",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"balance"
+							]
+						},
+						"description": "API Balance Private (memerlukan Token untuk mengaksesnya)"
+					},
+					"response": []
+				},
+				{
+					"name": "/topup",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"top_up_amount\": 100000\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/topup",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"topup"
+							]
+						},
+						"description": "API Topup Private (memerlukan Token untuk mengaksesnya)\n\nKetentuan:\n1. Setiap kali melakukan Top Up maka balance / saldo dari User otomatis bertambah\n2. Parameter amount hanya boleh angka saja dan tidak boleh lebih kecil dari 0"
+					},
+					"response": []
+				},
+				{
+					"name": "/transaction",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"service_code\": \"PULSA\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/transaction",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"transaction"
+							]
+						},
+						"description": "API Transaction Private (memerlukan Token untuk mengaksesnya)\n\nKetentuan:\n1. Setiap kali melakukan Transaksi harus dipastikan balance / saldo mencukupi"
+					},
+					"response": []
+				},
+				{
+					"name": "/transaction/history",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/transaction/history?offset=0&limit=5",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"transaction",
+								"history"
+							],
+							"query": [
+								{
+									"key": "offset",
+									"value": "0"
+								},
+								{
+									"key": "limit",
+									"value": "5"
+								}
+							]
+						},
+						"description": "API History Private (memerlukan Token untuk mengaksesnya)\n\nKetentuan:\n1. Terdapat parameter limit yang bersifat opsional, jika limit tidak dikirim maka tampilkan semua data"
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseURL",
+			"value": "http://localhost:3000",
+			"type": "string"
+		},
+		{
+			"key": "token",
+			"value": "",
+			"type": "string"
+		}
+	]
+}
