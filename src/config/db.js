@@ -12,13 +12,15 @@ const pool = new Pool({
   port: process.env.DB_PORT,
 });
 
-const query = (text, params) => {
-  // Menampilkan query di console untuk debugging
-  console.log('QUERY:', text, params || ''); 
-  return pool.query(text, params);
-};
+pool.connect((err) => {
+  if (err) {
+    console.error('Koneksi ke database GAGAL:', err.stack);
+  } else {
+    console.log('Koneksi ke database BERHASIL');
+  }
+});
 
 module.exports = {
-  query,
+  query: (text, params) => pool.query(text, params),
   pool,
 };

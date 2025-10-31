@@ -3,8 +3,9 @@ const cors = require('cors');
 const dotenv = require('dotenv');
 const { jsonResponse } = require('./utils/response');
 
-// Import routes
+// Routes
 const authRoutes = require('./routes/authRoutes');
+const profileRoutes = require('./routes/profileRoutes')
 
 dotenv.config();
 
@@ -14,6 +15,7 @@ const PORT = process.env.PORT || 3000;
 // Middleware
 app.use(cors());
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 // Routes
 app.get('/', (req, res) => {
@@ -21,6 +23,7 @@ app.get('/', (req, res) => {
 });
 
 app.use('/', authRoutes);
+app.use('/', profileRoutes);
 
 // Global Error Handler
 app.use((err, req, res, next) => {
