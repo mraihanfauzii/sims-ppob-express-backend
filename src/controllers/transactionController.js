@@ -48,7 +48,7 @@ const transaction = async (req, res, next) => {
     // 2. Panggil service untuk melakukan pembayaran
     const transactionData = await transactionService.performPayment(user, service_code);
     
-    // 3. Kembalikan response sukses sesuai kontrak
+    // 3. Kembalikan response sukses
     return jsonResponse(res, 200, 0, 'Transaksi berhasil', transactionData);
 
   } catch (error)

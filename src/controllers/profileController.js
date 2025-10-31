@@ -48,7 +48,7 @@ const updateProfileImage = async (req, res, next) => {
     // 2. Validasi format file (sesuai kontrak: jpeg/png)
     const allowedTypes = ['image/jpeg', 'image/png'];
     if (!allowedTypes.includes(req.file.mimetype)) {
-      return jsonResponse(res, 400, 102, 'Format Image tidak sesuai (hanya jpeg/png)');
+      return jsonResponse(res, 400, 102, 'Format Image tidak sesuai');
     }
 
     const simulatedImageUrl = 'https://yoururlapi.com/profile-updated.jpeg';
