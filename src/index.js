@@ -8,6 +8,7 @@ const bcrypt = require('bcryptjs');
 const authRoutes = require('./routes/authRoutes');
 const profileRoutes = require('./routes/profileRoutes')
 const infoRoutes = require('./routes/infoRoutes');
+const transactionRoutes = require('./routes/transactionRoutes');
 
 dotenv.config();
 
@@ -27,6 +28,7 @@ app.get('/', (req, res) => {
 app.use('/', authRoutes);
 app.use('/', profileRoutes);
 app.use('/', infoRoutes);
+app.use('/', transactionRoutes);
 
 // Global Error Handler
 app.use((err, req, res, next) => {
