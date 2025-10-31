@@ -14,7 +14,7 @@ const createUser = async (email, first_name, last_name, password) => {
   
   const query = {
     text: 'INSERT INTO users (email, first_name, last_name, "password") VALUES ($1, $2, $3, $4) RETURNING id, email, first_name, last_name',
-    values: [email, first_name, last_name, hashedPassword],
+    values: [email, first_name, last_name, password],
   };
   console.log('QUERY:', query.text, query.values); // Debug query
   const { rows } = await pool.query(query); // (FIX) Gunakan pool.query
