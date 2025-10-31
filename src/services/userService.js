@@ -11,8 +11,6 @@ const findUserByEmail = async (email) => {
 };
 
 const createUser = async (email, first_name, last_name, password) => {
-  // Hash password di dalam service
-  const hashedPassword = await bcrypt.hash(password, 10);
   
   const query = {
     text: 'INSERT INTO users (email, first_name, last_name, "password") VALUES ($1, $2, $3, $4) RETURNING id, email, first_name, last_name',
