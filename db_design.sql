@@ -72,7 +72,8 @@ VALUES
 ('Banner 2', 'https://nutech-integrasi.app/dummy.jpg', 'Lerem Ipsum Dolor sit amet'),
 ('Banner 3', 'https://nutech-integrasi.app/dummy.jpg', 'Lerem Ipsum Dolor sit amet'),
 ('Banner 4', 'https://nutech-integrasi.app/dummy.jpg', 'Lerem Ipsum Dolor sit amet'),
-('Banner 5', 'https://nutech-integrasi.app/dummy.jpg', 'Lerem Ipsum Dolor sit amet');
+('Banner 5', 'https://nutech-integrasi.app/dummy.jpg', 'Lerem Ipsum Dolor sit amet'),
+('Banner 6', 'https://nutech-integrasi.app/dummy.jpg', 'Lerem Ipsum Dolor sit amet');
 
 -- Seed Data untuk Services (Sesuai Kontrak API)
 INSERT INTO services (service_code, service_name, service_icon, service_tariff)
@@ -81,10 +82,11 @@ VALUES
 ('PLN', 'Listrik', 'https://nutech-integrasi.app/dummy.jpg', 10000),
 ('PDAM', 'PDAM Berlangganan', 'https://nutech-integrasi.app/dummy.jpg', 40000),
 ('PULSA', 'Pulsa', 'https://nutech-integrasi.app/dummy.jpg', 40000),
-('PGN', 'PGN', 'https://nutech-integrasi.app/dummy.jpg', 50000),
-('MUSIK', 'Music', 'https://nutech-integrasi.app/dummy.jpg', 50000),
-('GAME', 'Voucher Game', 'https://nutech-integrasi.app/dummy.jpg', 100000),
+('PGN', 'PGN Berlangganan', 'https://nutech-integrasi.app/dummy.jpg', 50000),
+('MUSIK', 'Music Berlangganan', 'https://nutech-integrasi.app/dummy.jpg', 50000),
 ('TV', 'TV Berlangganan', 'https://nutech-integrasi.app/dummy.jpg', 50000),
-('PAKET', 'Paket Data', 'https://nutech-integrasi.app/dummy.jpg', 50000),
-('ZAKAT', 'Zakat', 'https://nutech-integrasi.app/dummy.jpg', 100000),
-('E-MONEY', 'E-Money', 'https://nutech-integrasi.app/dummy.jpg', 150000);
+('PAKET_DATA', 'Paket data', 'https://nutech-integrasi.app/dummy.jpg', 50000),
+('VOUCHER_GAME', 'Voucher Game', 'https://nutech-integrasi.app/dummy.jpg', 100000),
+('VOUCHER_MAKANAN', 'Voucher Makanan', 'https://nutech-integrasi.app/dummy.jpg', 100000),
+('QURBAN', 'Qurban', 'https://nutech-integrasi.app/dummy.jpg', 200000),
+('ZAKAT', 'Zakat', 'https://nutech-integrasi.app/dummy.jpg', 300000);
